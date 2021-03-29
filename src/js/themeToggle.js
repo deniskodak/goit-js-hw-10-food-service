@@ -8,37 +8,50 @@ const Theme = {
 
 function bodyDefaultTheme() {
     if (localStorage.getItem('theme') == Theme.DARK) {
-        darkTheme(Theme);
+        changeTheme(Theme.DARK, Theme.LIGHT);
     }
     else {
-        lightTheme(Theme);
+        changeTheme(Theme.LIGHT, Theme.DARK);
     }
 }
 
 bodyDefaultTheme();
 
-function darkTheme({ LIGHT, DARK }) {
-    bodyRef.classList.add(`${DARK}`);
-    bodyRef.classList.remove(`${LIGHT}`);
-    inputRef.setAttribute('checked', 'true');
-    localStorage.setItem('theme', `${DARK}`);
-}
-function lightTheme({ LIGHT, DARK }) {
-    bodyRef.classList.add(`${LIGHT}`);
-    bodyRef.classList.remove(`${DARK}`);
+// function darkTheme({ LIGHT, DARK }) {
+//     bodyRef.classList.add(`${DARK}`);
+//     bodyRef.classList.remove(`${LIGHT}`);
+//     inputRef.setAttribute('checked', 'true');
+//     localStorage.setItem('theme', `${DARK}`);
+// }
+// function lightTheme({ LIGHT, DARK }) {
+//     bodyRef.classList.add(`${LIGHT}`);
+//     bodyRef.classList.remove(`${DARK}`);
 
-    inputRef.removeAttribute("checked");
-    localStorage.setItem('theme', `${LIGHT}`);
-}
+//     inputRef.removeAttribute("checked");
+//     localStorage.setItem('theme', `${LIGHT}`);
+// }
+function changeTheme(class1, class2) {
+    bodyRef.classList.add(class1);
+    bodyRef.classList.remove(class2);
+    localStorage.setItem('theme',  class1);
 
+    if (class2 === "light-theme") {
+        inputRef.setAttribute('checked', 'true');
+        
+    }
+    else {
+        inputRef.removeAttribute("checked");
+        
+    }
+}
 function themeToggle() {
     if (inputRef.hasAttribute('checked')) {
-        console.log('Privet');
-        return lightTheme(Theme);
+    
+        return changeTheme(Theme.LIGHT, Theme.DARK);
     }
     if (!inputRef.hasAttribute('checked')) {
-        console.log("POKA");
-        return darkTheme(Theme);
+        
+        return changeTheme(Theme.DARK, Theme.LIGHT);
     }
 }
 
